@@ -103,7 +103,7 @@ class Login extends Component {
             <div className='login-form'>
                 <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
                     <Grid.Column style={{ maxWidth: 450, marginTop: '100px' }}>
-                        <Form size='large' error={this.state.usernameError || this.state.passwordError} onSubmit={this.submitHandler}>
+                        <Form id="submit-btn" size='large' error={this.state.usernameError || this.state.passwordError} onSubmit={this.submitHandler}>
                             <Segment stacked style={{height: '350px'}}>
                                 <Form.Input 
                                     id='username' 

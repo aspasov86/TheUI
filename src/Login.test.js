@@ -2,21 +2,44 @@ import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import Login from './Login';
 
-it('should render without errors', () => {
-    expect(shallow(<Login/>).find('div.login-form').exist()).toBe(true)
+
+describe('Login Component', () => {
+    it('should render without errors', () => {
+        expect(shallow(<Login/>).find('div.login-form').exists()).toBe(true)
+    })
+    it('renders a username input', () => {
+        expect(shallow(<Login/>).find('#username').length).toEqual(1)
+    })
+    
+    it('renders a password input', () => {
+        expect(shallow(<Login/>).find('#password').length).toEqual(1)
+    })
 })
 
-it('renders a username input', () => {
-    expect(shallow(<Login/>).find('#username').length).toEqual(1)
+describe('Username and Password input', () => {
+    it('should respond to change event and change the state of the Login Component', () => {
+        const wrapper = shallow(<Login/>);
+        wrapper.find('#username').simulate('change', { target: { name: 'username', value: 'aspasov'} });
+        wrapper.find('#password').simulate('change', { target: { name: 'password', value: '12345'} });
+    })
 })
 
-it('renders a password input', () => {
-    expect(shallow(<Login/>).find('#password').length).toEqual(1)
-})
+describe('Component state change', () => {
+    it("should be affected when username is invalid", () => {
+        const wrapper = mount(<Login />);
+        wrapper.find('input#username').simulate('change', { target: { id: 'username', value: 'aspasov' }});
+        wrapper.find('form#submit-btn').simulate('submit');
+        expect(wrapper.state('usernameError')).toBe(true);
+        expect(wrapper.state('username')).toBe('aspasov');
+        expect(wrapper.state('errorMessages')).toContain('Email must be properly formatted');
+    })
 
-it('should respond to change event and change the state of the Login Component', () => {
-    const wrapper = shallow(<Login/>);
-    wrapper.find('#username').simulate('change', { target: { name: 'username', value: 'aspasov'} });
-    wrapper.find('#password').simulate('change', { target: { name: 'password', value: '12345'} });
+    it('should be affected when password is invalid', () => {
+        const wrapper = mount(<Login/>);
+        wrapper.find('form#submit-btn').simulate('submit');
+        expect(wrapper.state('passwordError')).toBe(true);
+        expect(wrapper.state('password')).toBe('');
+        expect(wrapper.state('errorMessages')).toContain('Password must not be empty');
+    })
 })
 
