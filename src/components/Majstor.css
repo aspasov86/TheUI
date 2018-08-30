@@ -1,0 +1,10 @@
+.icon-buttons {
+    float: right;
+}
+
+.icon-buttons > i {
+    margin-right: 20px !important;
+}
+.icon-buttons > i:last-of-type {
+    margin-right: 0 !important;
+}

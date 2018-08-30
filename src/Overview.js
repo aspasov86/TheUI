@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { majstors } from './mock-data/constants'
+import { Container } from 'semantic-ui-react';
+import MajstorsTable from './components/MajstorsTable';
 
 class Overview extends Component {
     render() {
-        
         return (
-            <div>Overview</div>
+            <Container style={{ marginTop: 50 }}>
+                <MajstorsTable />
+            </Container>
         )
     }
 }
