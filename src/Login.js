@@ -86,7 +86,7 @@ class Login extends Component {
         if (this.isValid()) {
             const { username, password } = this.state;
             if (username === trueLogin.username && password === trueLogin.password) {
-                localStorage.setItem('e-majs-auth', 'jnda4d5a4da4sd5')
+                localStorage.setItem('e-majs-auth', username)
                 this.goHome()
             } else if (username !== trueLogin.username) {
                 const errorMessages = ['Email does not exist in our database'];
