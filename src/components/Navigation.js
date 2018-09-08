@@ -1,11 +1,12 @@
 import React from 'react';
 import {
-    Icon,
     Menu,
     Container,
     Dropdown,
 } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import logo from '../assets/logo.png';
+import './Navigation.css';
 
 const navigation = ({ history }) => {
     const getUsername = email => {
@@ -25,9 +26,9 @@ const navigation = ({ history }) => {
     return (
     <Menu fixed="top" inverted>
         <Container>
-            <Menu.Item as="a" header>
-                <Icon name="setting" loading/>
-                eMajstore
+            <Menu.Item as="a" className="logo" header>
+                <span>eMajstore</span>
+                <img src={logo} alt="logo" />
             </Menu.Item>
             <Menu.Item disabled={!auth} as="a">Naslovna</Menu.Item>
             <Dropdown disabled={!auth} item simple text="Ostalo">
