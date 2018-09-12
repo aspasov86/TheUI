@@ -5,7 +5,7 @@ import MajstorsTable from './components/MajstorsTable';
 class Overview extends Component {
     render() {
         return (
-            <Container style={{ marginTop: 50 }}>
+            <Container style={{ marginTop: 150 }}>
                 <MajstorsTable />
             </Container>
         )

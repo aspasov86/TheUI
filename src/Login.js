@@ -6,6 +6,7 @@ import {
     Segment,
     Message,
 } from 'semantic-ui-react';
+import { DataContext } from './DataProvider';
 import { trueLogin } from './mock-data/constants'
 
 
@@ -82,10 +83,11 @@ class Login extends Component {
         )
 }
 
-    submitHandler = () => {
+    submitHandler = context => {
         if (this.isValid()) {
             const { username, password } = this.state;
             if (username === trueLogin.username && password === trueLogin.password) {
+                context(username, password);
                 localStorage.setItem('e-majs-auth', username)
                 this.goHome()
             } else if (username !== trueLogin.username) {
@@ -103,33 +105,41 @@ class Login extends Component {
             <div className='login-form'>
                 <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
                     <Grid.Column style={{ maxWidth: 450, marginTop: '100px' }}>
-                        <Form id="submit-btn" size='large' error={this.state.usernameError || this.state.passwordError} onSubmit={this.submitHandler}>
-                            <Segment stacked style={{height: '350px'}}>
-                                <Form.Input 
-                                    id='username' 
-                                    fluid 
-                                    icon='user' 
-                                    iconPosition='left' 
-                                    placeholder='E-mail address'
-                                    error={this.state.usernameError} 
-                                    onChange={this.changeHandler} 
-                                />
-                                <Form.Input
-                                    id='password'
-                                    fluid
-                                    icon='lock'
-                                    iconPosition='left'
-                                    placeholder='Password'
-                                    type='password'
-                                    error={this.state.passwordError} 
-                                    onChange={this.changeHandler}
-                                />
-                                {(this.state.usernameError || this.state.passwordError) && this.renderErrorMessage(this.state.errorMessages)}
-                                <Button color='teal' floated='right' size='large'>
-                                    Login
-                                </Button>
-                            </Segment>
-                        </Form>
+                        <DataContext.Consumer>
+                            {context => (
+                                <Form 
+                                    id="submit-btn" 
+                                    size='large' 
+                                    error={this.state.usernameError || this.state.passwordError} 
+                                    onSubmit={() => this.submitHandler(context.actions.loginUser)}>
+                                    <Segment stacked style={{height: '350px'}}>
+                                        <Form.Input 
+                                            id='username' 
+                                            fluid 
+                                            icon='user' 
+                                            iconPosition='left' 
+                                            placeholder='E-mail address'
+                                            error={this.state.usernameError} 
+                                            onChange={this.changeHandler} 
+                                        />
+                                        <Form.Input
+                                            id='password'
+                                            fluid
+                                            icon='lock'
+                                            iconPosition='left'
+                                            placeholder='Password'
+                                            type='password'
+                                            error={this.state.passwordError} 
+                                            onChange={this.changeHandler}
+                                        />
+                                        {(this.state.usernameError || this.state.passwordError) && this.renderErrorMessage(this.state.errorMessages)}
+                                        <Button color='teal' floated='right' size='large'>
+                                            Login
+                                        </Button>
+                                    </Segment>
+                                </Form>
+                            )}
+                        </DataContext.Consumer>
                     </Grid.Column>
                 </Grid>
             </div>
