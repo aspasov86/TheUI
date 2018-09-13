@@ -69,7 +69,7 @@ class Majstor extends Component {
                                                 occupation={occupationCodes[occupation]}
                                                 firstName={firstName}
                                                 lastName={lastName}
-                                                image={'../' + image}
+                                                image={`../${image}`}
                                                 isImageLoaded={() => this.setState({ imageLoad: true})}
                                                 showInfoHandler={this.handleClickIcon}
                                             />

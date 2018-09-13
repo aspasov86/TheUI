@@ -8,19 +8,21 @@ import { DataContext } from '../DataProvider';
 import logo from '../assets/logo.png';
 import './Navigation.css';
 
+const Logo = () => {
+    return (
+        <div className="logo">
+            <span>eMajstore</span>
+            <img src={logo} alt="logo" />
+        </div>
+    )
+}
+
 const navigation = () => {
     return (
     <Menu fixed="top" inverted>
-        <Container>
-            <Menu.Menu>
-                <Menu.Item as="a" className="logo" header>
-                    <span>eMajstore</span>
-                    <img src={logo} alt="logo" />
-                </Menu.Item>
-            </Menu.Menu>
             <DataContext.Consumer>
                 {context => context.state.auth && (
-                    <Menu.Menu>
+                    <Container>
                         <Menu.Item as="a">Naslovna</Menu.Item>
                         <Dropdown item simple text="Ostalo">
                             <Dropdown.Menu>
@@ -36,10 +38,9 @@ const navigation = () => {
                                 Logout
                             </Menu.Item>
                         </Menu.Menu>
-                </Menu.Menu>
+                    </Container>
                 )}
             </DataContext.Consumer>
-        </Container>
     </Menu>
 )};
 
