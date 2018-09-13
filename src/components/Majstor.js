@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Container } from 'semantic-ui-react';
+import { Grid, Container, Loader } from 'semantic-ui-react';
 import MajstorProfile from './MajstorProfile';
 import { withRouter } from 'react-router-dom';
 import { Get } from 'react-axios';
@@ -54,13 +54,13 @@ class Majstor extends Component {
                     if (error) {
                         return (<div>We are experiencing network issues!</div>);
                     } else if (isLoading) {
-                        return (<div>Loading...</div>);
+                        return <Loader size="huge" active />
                     } else if (response !== null) {
                         const { firstName, lastName, stats, image, occupation } = this.getData(response.data.majstors);
                         const { imageLoad } = this.state;
                         return (
-                            <Container style={{ marginTop: 150 }}>
-                                <Grid style={{ width:600, margin: 'auto'}}>
+                            <Container>
+                                <Grid style={{ width: 600, margin: 'auto'}}>
                                     <Grid.Row columns={2}>
                                         <Grid.Column>
                                             <MajstorProfile 

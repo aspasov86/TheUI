@@ -98,7 +98,7 @@ class Login extends Component {
         return (
             <div className='login-form'>
                 <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
-                    <Grid.Column style={{ maxWidth: 450, marginTop: '100px' }}>
+                    <Grid.Column style={{ maxWidth: 450 }}>
                         <DataContext.Consumer>
                             {context => (
                                 <Form 
@@ -127,7 +127,7 @@ class Login extends Component {
                                             onChange={this.changeHandler}
                                         />
                                         {context.state.error ? this.renderErrorMessage(context.state.error) : error}
-                                        <Button color='teal' floated='right' size='large'>
+                                        <Button floated='right' size='large'>
                                             Login
                                         </Button>
                                     </Segment>

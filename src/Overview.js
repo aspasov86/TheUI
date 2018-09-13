@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react';
+import { Container, Loader } from 'semantic-ui-react';
 import { Get } from 'react-axios';
 
 import MajstorsTable from './components/MajstorsTable';
@@ -14,10 +14,10 @@ class Overview extends Component {
                     if (error) {
                         return (<div>We are experiencing network issues!</div>);
                     } else if (isLoading) {
-                        return (<div>Loading...</div>);
+                        return <Loader size="huge" active />
                     } else if (response !== null) {
                         return (
-                            <Container style={{ marginTop: 150 }}>
+                            <Container>
                                 <MajstorsTable majstors={response.data.majstors}/>
                             </Container>
                         );

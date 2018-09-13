@@ -1,0 +1,33 @@
+.logo-bar {
+    height: 80px;
+    width: 100%;
+}
+
+.logo-bar > .logo {
+    width: 70px;
+}
+
+
+.logo {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99999999999;
+    display:flex;
+    flex-direction: column-reverse;
+    margin-top: .5rem !important;
+}
+
+.logo > img {
+    z-index: 9999;
+    height: 50px;
+    width: 50px;
+    margin: 0 auto;
+}
+
+.logo > span {
+    font-weight: 400;
+    color: rgba(255,255,255,.9);
+    text-align: center;
+}
+

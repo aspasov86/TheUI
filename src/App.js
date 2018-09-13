@@ -6,12 +6,14 @@ import PrivateRoute from './primitives/PrivateRoute';
 import Majstor from './components/Majstor';
 import Navigation from './components/Navigation';
 import DataProvider from './DataProvider';
+import LogoBar from "./components/LogoBar";
 
 const app = () => (
   <BrowserRouter>
     <div>
       <DataProvider>
         <Navigation />
+        <LogoBar />
         <Switch>
           <Redirect exact from='/' to='/login' />
           <Route exact path='/login' component={Login} />

@@ -1,8 +1,0 @@
-.logo {
-    display:flex;
-    flex-direction: column-reverse;
-}
-
-.logo > span {
-    margin-top: .5rem;
-}

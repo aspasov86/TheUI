@@ -5,17 +5,7 @@ import {
     Dropdown,
 } from 'semantic-ui-react';
 import { DataContext } from '../DataProvider';
-import logo from '../assets/logo.png';
-import './Navigation.css';
 
-const Logo = () => {
-    return (
-        <div className="logo">
-            <span>eMajstore</span>
-            <img src={logo} alt="logo" />
-        </div>
-    )
-}
 
 const navigation = () => {
     return (
