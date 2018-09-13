@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import MajstorProfile from './MajstorProfile';
 import { withRouter } from 'react-router-dom';
-import { majstors } from '../mock-data/constants';
+import { Get } from 'react-axios';
 import MajstorStatistics from './MajstorStatistics';
+import occupationCodes from './occupation';
 
 class Majstor extends Component {
     state = {
@@ -11,13 +12,13 @@ class Majstor extends Component {
         active: false,
     }
 
-    getData = () => {
+    getData = data => {
         const { match: { params: { id: majstorId }} } = this.props;
-        return majstors.filter(majstor => majstor.id === parseInt(majstorId, 0))[0];
+        return data.filter(majstor => majstor.id === majstorId)[0];
     }
 
-    renderMajstorInfo = () => {
-        const { place, email, phoneNumber } = this.getData();
+    renderMajstorInfo = data => {
+        const { place, email, phoneNumber } = this.getData(data);
         const { active } = this.state
         let info;
         switch ( active ) {
@@ -47,30 +48,43 @@ class Majstor extends Component {
     }
 
     render() {
-        const { firstName, lastName, stats, image, occupation } = this.getData();
-        const { imageLoad } = this.state;
         return (
-        <Container style={{ marginTop: 50 }}>
-            <Grid style={{width:600, margin: 'auto'}}>
-                <Grid.Row columns={2}>
-                    <Grid.Column>
-                        <MajstorProfile 
-                            imageLoad={imageLoad}
-                            majstorInfo={this.renderMajstorInfo()}
-                            occupation={occupation}
-                            firstName={firstName}
-                            lastName={lastName}
-                            image={image}
-                            isImageLoaded={() => this.setState({ imageLoad: true})}
-                            showInfoHandler={this.handleClickIcon}
-                        />
-                    </Grid.Column>
-                    <Grid.Column>
-                        <MajstorStatistics stats={stats} />
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
-        </Container>
+            <Get url="/api/majstors">
+                {(error, response, isLoading) => {
+                    if (error) {
+                        return (<div>We are experiencing network issues!</div>);
+                    } else if (isLoading) {
+                        return (<div>Loading...</div>);
+                    } else if (response !== null) {
+                        const { firstName, lastName, stats, image, occupation } = this.getData(response.data.majstors);
+                        const { imageLoad } = this.state;
+                        return (
+                            <Container style={{ marginTop: 150 }}>
+                                <Grid style={{ width:600, margin: 'auto'}}>
+                                    <Grid.Row columns={2}>
+                                        <Grid.Column>
+                                            <MajstorProfile 
+                                                imageLoad={imageLoad}
+                                                majstorInfo={this.renderMajstorInfo(response.data.majstors)}
+                                                occupation={occupationCodes[occupation]}
+                                                firstName={firstName}
+                                                lastName={lastName}
+                                                image={'../' + image}
+                                                isImageLoaded={() => this.setState({ imageLoad: true})}
+                                                showInfoHandler={this.handleClickIcon}
+                                            />
+                                        </Grid.Column>
+                                        <Grid.Column>
+                                            <MajstorStatistics stats={stats} />
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
+                            </Container>
+                        );
+                    }
+                    return <div/>
+                }}
+            </Get>
         )
     }
 }

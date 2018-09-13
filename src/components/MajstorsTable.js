@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Table, Rating } from 'semantic-ui-react';
-import { majstors } from '../mock-data/constants';
 import { withRouter } from 'react-router-dom';
 
 class MajstorsTable extends Component {
@@ -26,14 +25,15 @@ class MajstorsTable extends Component {
       })
     }
 
-    renderTable = () => (
+    renderTable = data => (
         <Table compact selectable striped style={{width: 700, margin: 'auto'}}>
-            <Table.Body>{this.renderTableRows(majstors)}</Table.Body>
+            <Table.Body>{this.renderTableRows(data)}</Table.Body>
         </Table>
     )
-
+    
     render() {
-        return this.renderTable();
+        const { majstors } = this.props;
+        return this.renderTable(majstors);
     };
 };
 

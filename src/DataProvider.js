@@ -51,13 +51,13 @@ class DataProvider extends Component {
                                     const username = getUsername(email)
                                     localStorage.setItem('e-majs-auth', response.data.token);
                                     localStorage.setItem('e-majs-username', username);
-                                    this.setState({ auth, username });
+                                    this.setState({ auth, username, error: false });
                                     this.props.history.push('/overview');
                                 }
                             }
                         }
                         catch(err) {
-                            this.setState({ error: err });
+                            this.setState({ error: ["Username or password are incorrect!"] });
                         }                        
                     },
                     logoutUser: async () => {

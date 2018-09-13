@@ -7,7 +7,6 @@ import {
     Message,
 } from 'semantic-ui-react';
 import { DataContext } from './DataProvider';
-import { trueLogin } from './mock-data/constants'
 
 
 class Login extends Component {
@@ -86,21 +85,16 @@ class Login extends Component {
     submitHandler = context => {
         if (this.isValid()) {
             const { username, password } = this.state;
-            if (username === trueLogin.username && password === trueLogin.password) {
-                context(username, password);
-                localStorage.setItem('e-majs-auth', username)
-                this.goHome()
-            } else if (username !== trueLogin.username) {
-                const errorMessages = ['Email does not exist in our database'];
-                this.setState({ usernameError: true, errorMessages });
-            } else if (username === trueLogin.username && password !== trueLogin.password) {
-                const errorMessages = ['You typed in a wrong password'];
-                this.setState({ passwordError: true, errorMessages });
-            } 
+            context(username, password);
         }
     }
 
     render() {
+        const { usernameError, passwordError, errorMessages } = this.state;
+        let error = null;
+        if (usernameError || passwordError) {
+            error = this.renderErrorMessage(errorMessages)
+        }
         return (
             <div className='login-form'>
                 <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
@@ -110,7 +104,7 @@ class Login extends Component {
                                 <Form 
                                     id="submit-btn" 
                                     size='large' 
-                                    error={this.state.usernameError || this.state.passwordError} 
+                                    error={this.state.usernameError || this.state.passwordError || !!context.state.error} 
                                     onSubmit={() => this.submitHandler(context.actions.loginUser)}>
                                     <Segment stacked style={{height: '350px'}}>
                                         <Form.Input 
@@ -132,7 +126,7 @@ class Login extends Component {
                                             error={this.state.passwordError} 
                                             onChange={this.changeHandler}
                                         />
-                                        {(this.state.usernameError || this.state.passwordError) && this.renderErrorMessage(this.state.errorMessages)}
+                                        {context.state.error ? this.renderErrorMessage(context.state.error) : error}
                                         <Button color='teal' floated='right' size='large'>
                                             Login
                                         </Button>
