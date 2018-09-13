@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Container, Loader } from 'semantic-ui-react';
+import { Grid, Container, Loader, Button } from 'semantic-ui-react';
 import MajstorProfile from './MajstorProfile';
 import { withRouter } from 'react-router-dom';
 import { Get } from 'react-axios';
@@ -48,6 +48,7 @@ class Majstor extends Component {
     }
 
     render() {
+        const { history } = this.props;
         return (
             <Get url="/api/majstors">
                 {(error, response, isLoading) => {
@@ -61,6 +62,13 @@ class Majstor extends Component {
                         return (
                             <Container>
                                 <Grid style={{ width: 600, margin: 'auto'}}>
+                                    <Button 
+                                        size="tiny" 
+                                        labelPosition="left" 
+                                        icon="left chevron" 
+                                        content="Nazad" 
+                                        style={{ margin: 'auto' }} 
+                                        onClick={() => history.push('/overview')}/>
                                     <Grid.Row columns={2}>
                                         <Grid.Column>
                                             <MajstorProfile 
