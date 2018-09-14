@@ -65,6 +65,16 @@ class DataProvider extends Component {
                         localStorage.removeItem('e-majs-username');
                         this.resetState();
                         this.props.history.push('/login');
+                    },
+                    uploadMajstor: async data => {
+                        const token = localStorage.getItem('e-majs-auth');
+                        const options = {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        }
+                        const response = await axios.post('/api/majstors', data, options);
+                        console.log('response', response);
                     }
                 }
             }}>
