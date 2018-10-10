@@ -16,7 +16,7 @@ class MajstorsTable extends Component {
             <Table.Row 
                 key={i}
                 onClick={() => this.handleRowClick(majstor)}>
-                <Table.Cell><strong>{occupation}</strong></Table.Cell>
+                <Table.Cell><img src={`icons/occupation-${occupation}.svg`} style={{ width: 25 }}/></Table.Cell>
                 <Table.Cell>{`${firstName} ${lastName}`}</Table.Cell>
                 <Table.Cell><Rating disabled rating={rating} maxRating={5} /></Table.Cell>
                 <Table.Cell>{place}</Table.Cell>

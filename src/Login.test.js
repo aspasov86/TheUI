@@ -2,8 +2,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import Login from './Login';
-import Overview from './Overview';
-import { trueLogin } from './mock-data/constants';
 
 function History() {
     this.history = [];
@@ -41,16 +39,5 @@ describe('Component state change', () => {
         expect(wrapper.state('passwordError')).toBe(true);
         expect(wrapper.state('password')).toBe('');
         expect(wrapper.state('errorMessages')).toContain('Password must not be empty');
-    })
-})
-
-describe('User authentication', () => {
-    it("should accept correct user's credentials", () => {
-        const overview = shallow(<Overview/>);
-        const wrapper = mount(<Login history={new History()}/>);
-        wrapper.find('input#username').simulate('change', { target: { id: 'username', value: trueLogin.username} });
-        wrapper.find('input#password').simulate('change', { target: { id: 'password', value: trueLogin.password} });
-        wrapper.find('form#submit-btn').simulate('submit');
-        expect(toJson(overview)).toMatchSnapshot();
     })
 })
