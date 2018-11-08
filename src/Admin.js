@@ -17,7 +17,12 @@ class Admin extends Component {
     ];
 
     changeHandler = event => {
-        this.setState({ [event.target.id]: event.target.value });
+        const { id, value, files } = event.target;
+        let content = value;
+        if (id === 'image') {
+            content = files[0];
+        }
+        this.setState({ [id]: content });
     }
 
     render() {
@@ -39,7 +44,8 @@ class Admin extends Component {
                                     />
                                 </div>
                             ))}
-                            <Button>Dodaj</Button>
+                            {/*ToDo: Error handling*/}
+                            {context.state.adminUpload ? (<p>Dodato!</p>) : (<Button>Dodaj</Button>)}
                         </Form>
                     </Container>
                 )}

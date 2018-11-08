@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import toJson from 'enzyme-to-json';
 import Login from './Login';
 
 function History() {
@@ -17,7 +16,6 @@ describe('Login Component', () => {
     it('renders a username input', () => {
         expect(shallow(<Login/>).find('#username').length).toEqual(1);
     })
-    
     it('renders a password input', () => {
         expect(shallow(<Login/>).find('#password').length).toEqual(1);
     })

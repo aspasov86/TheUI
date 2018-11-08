@@ -10,8 +10,12 @@ class MajstorsTable extends Component {
       return  data.map((majstor, i) => {
         const { firstName, lastName, stats, place, occupation } = majstor;
         const numOfStats = Object.keys(stats).length;
-        const statsSum = Object.keys(stats).map(stat => stats[stat]).reduce((a,b) => a + b);
-        const rating = (5 * (statsSum / numOfStats)) / 100;
+        let rating = 0;
+        if (numOfStats) {
+            const statsSum = Object.keys(stats).map(stat => stats[stat]).reduce((a,b) => a + b);
+            rating = (5 * (statsSum / numOfStats)) / 100;
+        }
+
         return (
             <Table.Row 
                 key={i}

@@ -16,6 +16,7 @@ class DataProvider extends Component {
         auth: false,
         username: false,
         error: false,
+        adminUpload: false
     };
 
     componentDidMount() {
@@ -73,8 +74,13 @@ class DataProvider extends Component {
                                 'Authorization': `Bearer ${token}`
                             }
                         }
-                        const response = await axios.post('/api/majstors', data, options);
-                        console.log('response', response);
+                        const dataWrap = new FormData();
+                        Object.keys(data).forEach(key => dataWrap.append(key, data[key]));
+                        /*ToDo: Error handling*/
+                        const response = await axios.post('/api/majstors', dataWrap, options);
+                        if (response) {
+                            this.setState({adminUpload: true});
+                        }
                     }
                 }
             }}>
